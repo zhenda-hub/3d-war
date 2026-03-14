@@ -1,0 +1,749 @@
+/* ============================================
+   主题 1：古典博物馆风格 (默认)
+   Classical Museum Style
+   古铜金 | 深红 | 羊皮纸 | 历史厚重感
+   ============================================ */
+
+:root {
+    /* 古典配色 */
+    --color-antique-gold: #B8860B;
+    --color-dark-bronze: #8B6914;
+    --color-crimson: #8B0000;
+    --color-deep-red: #6B0000;
+    --color-parchment: #F5F0E6;
+    --color-ivory: #FFFEF9;
+    --color-ink: #1A1A1A;
+    --color-charcoal: #2D2D2D;
+    --color-stone: #8B8680;
+    --color-warm-gray: #A8A095;
+
+    /* 质感叠加 */
+    --texture-paper: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+
+    /* 字体 */
+    --font-heading: 'Playfair Display', 'Noto Serif SC', serif;
+    --font-body: 'Noto Serif SC', serif;
+
+    /* 阴影 - 古典质感 */
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-elegant: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-deep: 0 8px 32px rgba(0, 0, 0, 0.16);
+    --shadow-inner: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+
+    /* 圆角 */
+    --radius-sm: 2px;
+    --radius-md: 4px;
+    --radius-classic: 8px;
+}
+
+[data-theme="classical"] {
+    --bg-primary: var(--color-parchment);
+    --bg-secondary: var(--color-ivory);
+    --bg-surface: var(--color-ivory);
+    --bg-elevated: var(--color-ivory);
+    --text-primary: var(--color-ink);
+    --text-secondary: var(--color-charcoal);
+    --text-muted: var(--color-stone);
+    --border-color: var(--color-antique-gold);
+    --accent-primary: var(--color-crimson);
+    --accent-secondary: var(--color-antique-gold);
+    --logo-color: var(--color-antique-gold);
+    --card-bg: var(--color-ivory);
+    --hero-bg: linear-gradient(135deg, var(--color-ivory) 0%, var(--color-parchment) 50%, #E8E0D0 100%);
+    --navbar-bg: linear-gradient(to bottom, var(--color-ivory), var(--color-parchment));
+    --overlay-gradient: linear-gradient(to top, rgba(26, 26, 26, 0.8) 0%, transparent 50%);
+}
+
+[data-theme="classical"] body {
+    background-color: var(--bg-primary);
+    background-image: var(--texture-paper);
+}
+
+[data-theme="classical"] .navbar {
+    background: var(--navbar-bg);
+    border-bottom: 2px solid var(--border-color);
+    box-shadow: var(--shadow-elegant);
+}
+
+[data-theme="classical"] .navbar::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent 0%, var(--border-color) 20%, var(--border-color) 80%, transparent 100%);
+}
+
+[data-theme="classical"] .hero-section {
+    background: var(--hero-bg);
+}
+
+[data-theme="classical"] .hero-title {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="classical"] .battle-card {
+    background: var(--card-bg);
+    box-shadow: var(--shadow-elegant);
+}
+
+[data-theme="classical"] .card-era {
+    background: linear-gradient(135deg, var(--accent-secondary), var(--color-dark-bronze));
+    color: var(--bg-secondary);
+}
+
+[data-theme="classical"] .card-image img {
+    filter: sepia(0.2) contrast(1.1);
+}
+
+[data-theme="classical"] .article-content th {
+    background: linear-gradient(to bottom, var(--accent-secondary), var(--color-dark-bronze));
+    color: var(--bg-secondary);
+}
+
+[data-theme="classical"] .spinner {
+    border-color: var(--bg-primary);
+    border-top-color: var(--accent-secondary);
+}
+
+[data-theme="classical"] .theme-preview-card.classical {
+    border-color: var(--accent-secondary);
+    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+}
+
+/* ============================================
+   主题 2：现代极简风格
+   Modern Minimalist Style
+   纯白 | 深灰 | 电光蓝 | 干净利落
+   ============================================ */
+
+[data-theme="modern"] {
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #F8FAFC;
+    --bg-surface: #F1F5F9;
+    --bg-elevated: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #94A3B8;
+    --border-color: #E2E8F0;
+    --accent-primary: #2563EB;
+    --accent-secondary: #3B82F6;
+    --logo-color: var(--accent-primary);
+    --card-bg: #FFFFFF;
+    --hero-bg: var(--bg-secondary);
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --overlay-gradient: linear-gradient(to top, rgba(15, 23, 42, 0.7) 0%, transparent 60%);
+    --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-elegant: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-deep: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-classic: 16px;
+    --font-heading: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+[data-theme="modern"] body {
+    background-color: var(--bg-primary);
+    background-image: none;
+    font-family: var(--font-body);
+}
+
+[data-theme="modern"] .navbar {
+    background: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-elegant);
+}
+
+[data-theme="modern"] .navbar::before {
+    display: none;
+}
+
+[data-theme="modern"] .hero-section {
+    background: var(--hero-bg);
+}
+
+[data-theme="modern"] .hero-pattern {
+    display: none;
+}
+
+[data-theme="modern"] .decoration-line {
+    background: var(--accent-primary);
+}
+
+[data-theme="modern"] .decoration-icon {
+    color: var(--accent-primary);
+}
+
+[data-theme="modern"] .hero-title {
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+[data-theme="modern"] .hero-subtitle {
+    font-weight: 400;
+}
+
+[data-theme="modern"] .battle-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-classic);
+    box-shadow: var(--shadow-soft);
+}
+
+[data-theme="modern"] .battle-card::before {
+    display: none;
+}
+
+[data-theme="modern"] .card-frame {
+    display: none;
+}
+
+[data-theme="modern"] .card-image {
+    background: var(--bg-secondary);
+}
+
+[data-theme="modern"] .card-image img {
+    filter: none;
+}
+
+[data-theme="modern"] .card-content {
+    padding: 1rem;
+}
+
+[data-theme="modern"] .card-content::before {
+    display: none;
+}
+
+[data-theme="modern"] .card-era {
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+}
+
+[data-theme="modern"] .card-content h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+[data-theme="modern"] .back-btn {
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+}
+
+[data-theme="modern"] .back-btn:hover {
+    background: var(--bg-surface);
+}
+
+[data-theme="modern"] .article-header h1 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+[data-theme="modern"] .article-content {
+    font-size: 1rem;
+}
+
+[data-theme="modern"] .article-content h2 {
+    font-weight: 700;
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="modern"] .article-content h3 {
+    font-weight: 700;
+}
+
+[data-theme="modern"] .article-content blockquote {
+    background: var(--bg-secondary);
+    border-left-color: var(--accent-primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+[data-theme="modern"] .article-content table {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="modern"] .article-content th {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8125rem;
+}
+
+[data-theme="modern"] .gallery-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+}
+
+[data-theme="modern"] .gallery-frame {
+    display: none;
+}
+
+[data-theme="modern"] .gallery-item img {
+    filter: none;
+}
+
+[data-theme="modern"] .spinner {
+    border-color: var(--bg-surface);
+    border-top-color: var(--accent-primary);
+}
+
+[data-theme="modern"] .theme-preview-card.modern {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* ============================================
+   主题 3：暗黑史诗风格
+   Dark Epic Style
+   深黑 | 生铁 | 火焰红 | 战争氛围
+   ============================================ */
+
+[data-theme="dark"] {
+    --bg-primary: #0A0A0A;
+    --bg-secondary: #141414;
+    --bg-surface: #1A1A1A;
+    --bg-elevated: #1F1F1F;
+    --text-primary: #F5F5F5;
+    --text-secondary: #A3A3A3;
+    --text-muted: #525252;
+    --border-color: #262626;
+    --accent-primary: #DC2626;
+    --accent-secondary: #B45309;
+    --logo-color: #EF4444;
+    --card-bg: #141414;
+    --hero-bg: linear-gradient(180deg, #0A0A0A 0%, #1A1A1A 100%);
+    --navbar-bg: rgba(10, 10, 10, 0.95);
+    --overlay-gradient: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 50%);
+    --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-elegant: 0 4px 16px rgba(0, 0, 0, 0.4);
+    --shadow-deep: 0 8px 32px rgba(0, 0, 0, 0.5);
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-classic: 12px;
+    --font-heading: 'Playfair Display', 'Noto Serif SC', serif;
+    --font-body: 'Noto Serif SC', serif;
+}
+
+[data-theme="dark"] body {
+    background-color: var(--bg-primary);
+    background-image:
+        radial-gradient(ellipse at top, rgba(220, 38, 38, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom, rgba(180, 83, 9, 0.03) 0%, transparent 50%);
+}
+
+[data-theme="dark"] .navbar {
+    background: var(--navbar-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .navbar::before {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right,
+        transparent 0%,
+        rgba(220, 38, 38, 0.5) 20%,
+        rgba(220, 38, 38, 0.5) 80%,
+        transparent 100%
+    );
+}
+
+[data-theme="dark"] .nav-logo .logo-text {
+    background: linear-gradient(135deg, #EF4444, #DC2626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="dark"] .hero-section {
+    background: var(--hero-bg);
+}
+
+[data-theme="dark"] .hero-pattern {
+    opacity: 0.08;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(220, 38, 38, 0.3) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(180, 83, 9, 0.2) 0%, transparent 40%);
+}
+
+[data-theme="dark"] .decoration-line {
+    background: linear-gradient(to right, transparent, rgba(220, 38, 38, 0.5), transparent);
+}
+
+[data-theme="dark"] .decoration-icon {
+    color: #EF4444;
+}
+
+[data-theme="dark"] .hero-title {
+    background: linear-gradient(135deg, #F5F5F5 0%, #DC2626 50%, #B45309 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 40px rgba(220, 38, 38, 0.3);
+}
+
+[data-theme="dark"] .hero-subtitle {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .battle-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-elegant);
+}
+
+[data-theme="dark"] .battle-card::before {
+    background: linear-gradient(to right, #DC2626, #B45309, #DC2626);
+}
+
+[data-theme="dark"] .battle-card:hover {
+    box-shadow: 0 8px 32px rgba(220, 38, 38, 0.15);
+}
+
+[data-theme="dark"] .card-image {
+    background: linear-gradient(135deg, #1A1A1A 0%, #0A0A0A 100%);
+}
+
+[data-theme="dark"] .card-frame {
+    border-color: rgba(220, 38, 38, 0.2);
+}
+
+[data-theme="dark"] .card-image img {
+    filter: brightness(0.8) contrast(1.2);
+}
+
+[data-theme="dark"] .battle-card:hover .card-image img {
+    filter: brightness(0.9) contrast(1.1);
+}
+
+[data-theme="dark"] .card-era {
+    background: linear-gradient(135deg, #DC2626, #991B1B);
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .card-content h3 {
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .card-content .location,
+[data-theme="dark"] .card-content .description {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .back-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .back-btn:hover {
+    background: linear-gradient(135deg, #DC2626, #991B1B);
+    border-color: #DC2626;
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .article-header h1 {
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .article-meta .year,
+[data-theme="dark"] .article-meta .location {
+    background: var(--bg-surface);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .article-content {
+    color: #D4D4D4;
+}
+
+[data-theme="dark"] .article-content h2 {
+    color: #F5F5F5;
+    border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .article-content h3 {
+    color: #E5E5E5;
+}
+
+[data-theme="dark"] .article-content blockquote {
+    background: var(--bg-surface);
+    border-left-color: #DC2626;
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .article-content table {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .article-content th {
+    background: linear-gradient(to bottom, #DC2626, #991B1B);
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .article-content th,
+[data-theme="dark"] .article-content td {
+    border-bottom-color: var(--border-color);
+}
+
+[data-theme="dark"] .gallery-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .gallery-frame {
+    border-color: rgba(220, 38, 38, 0.2);
+}
+
+[data-theme="dark"] .gallery-item img {
+    filter: brightness(0.8) contrast(1.2);
+}
+
+[data-theme="dark"] .gallery-item figcaption {
+    color: var(--text-secondary);
+}
+
+[data-theme="dark"] .image-gallery h2 {
+    color: #F5F5F5;
+}
+
+[data-theme="dark"] .spinner {
+    border-color: var(--bg-surface);
+    border-top-color: #DC2626;
+}
+
+[data-theme="dark"] .theme-preview-card.dark {
+    border-color: #DC2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+/* ============================================
+   主题切换器样式
+   ============================================ */
+
+.theme-switcher {
+    position: relative;
+}
+
+.theme-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: transparent;
+    border: 1px solid var(--color-border, #E2E8F0);
+    border-radius: var(--radius-classic, 8px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--color-text, #1A1A1A);
+    font-family: var(--font-body, inherit);
+    font-size: 0.875rem;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--bg-surface, #F1F5F9);
+}
+
+.theme-icon {
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+/* 主题选择面板 */
+.theme-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    background: var(--bg-elevated, #FFFFFF);
+    border: 1px solid var(--border-color, #E2E8F0);
+    border-radius: var(--radius-classic, 12px);
+    box-shadow: var(--shadow-deep, 0 20px 60px rgba(0, 0, 0, 0.2));
+    padding: var(--spacing-xl);
+    z-index: 2000;
+    min-width: 320px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.theme-panel.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.theme-panel-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.theme-panel-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.theme-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-lg);
+}
+
+.theme-panel-title {
+    font-family: var(--font-heading, inherit);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary, #1A1A1A);
+}
+
+.theme-panel-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-sm, 6px);
+    cursor: pointer;
+    color: var(--text-secondary, #475569);
+    transition: all 0.15s ease;
+}
+
+.theme-panel-close:hover {
+    background: var(--bg-surface, #F1F5F9);
+    color: var(--text-primary, #1A1A1A);
+}
+
+.theme-grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.theme-preview-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-surface, #F1F5F9);
+    border: 2px solid transparent;
+    border-radius: var(--radius-md, 12px);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.theme-preview-card:hover {
+    border-color: var(--border-color, #E2E8F0);
+    transform: translateX(4px);
+}
+
+.theme-preview-card.active {
+    border-color: var(--accent-primary, #2563EB);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.theme-preview-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm, 6px);
+    font-size: 1.5rem;
+}
+
+.theme-preview-icon.classical {
+    background: linear-gradient(135deg, #B8860B, #8B0000);
+    color: #FFFEF9;
+}
+
+.theme-preview-icon.modern {
+    background: linear-gradient(135deg, #F8FAFC, #2563EB);
+    color: #0F172A;
+}
+
+.theme-preview-icon.dark {
+    background: linear-gradient(135deg, #0A0A0A, #DC2626);
+    color: #F5F5F5;
+}
+
+.theme-preview-info {
+    flex: 1;
+}
+
+.theme-preview-name {
+    font-family: var(--font-heading, inherit);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--text-primary, #1A1A1A);
+    margin-bottom: 2px;
+}
+
+.theme-preview-desc {
+    font-size: 0.8125rem;
+    color: var(--text-muted, #94A3B8);
+}
+
+.theme-check {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-primary, #2563EB);
+    border-radius: 50%;
+    color: white;
+    font-size: 0.75rem;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease;
+}
+
+.theme-preview-card.active .theme-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 平滑过渡 */
+body {
+    transition: background-color 0.3s ease, background-image 0.3s ease, color 0.3s ease;
+}
+
+.navbar,
+.battle-card,
+.card-image img,
+.back-btn,
+.article-content,
+.gallery-item {
+    transition: all 0.3s ease;
+}
