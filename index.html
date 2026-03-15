@@ -1,162 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>历史战役百科</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>历史战役百科</title>
 
-    <!-- 引入古典字体 -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/themes.css">
+  <!-- 引入古典字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body :data-theme="currentTheme">
-    <div id="app">
-        <!-- 主题面板遮罩 -->
-        <div :class="['theme-panel-backdrop', { 'active': themePanelOpen }]"
-             @click="closeThemePanel"></div>
-
-        <!-- 主题选择面板 -->
-        <div :class="['theme-panel', { 'active': themePanelOpen }]">
-            <div class="theme-panel-header">
-                <h3 class="theme-panel-title">选择主题风格</h3>
-                <button @click="closeThemePanel" class="theme-panel-close">✕</button>
-            </div>
-            <div class="theme-grid">
-                <div v-for="theme in themes" :key="theme.id"
-                     :class="['theme-preview-card', theme.id, { 'active': currentTheme === theme.id }]"
-                     @click="setTheme(theme.id)">
-                    <div :class="['theme-preview-icon', theme.id]">{{ theme.icon }}</div>
-                    <div class="theme-preview-info">
-                        <div class="theme-preview-name">{{ theme.name }}</div>
-                        <div class="theme-preview-desc">{{ theme.description }}</div>
-                    </div>
-                    <div class="theme-check">✓</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 全局导航栏 -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <a href="#" @click.prevent="goHome" class="nav-logo">
-                    <span class="logo-icon">⚔</span>
-                    <span class="logo-text">历史战役百科</span>
-                </a>
-                <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
-                    <!-- 主题切换按钮 -->
-                    <div class="theme-switcher">
-                        <button @click="toggleThemePanel" class="theme-toggle-btn" :title="currentThemeName">
-                            <span class="theme-icon">{{ currentThemeIcon }}</span>
-                            <span class="theme-label">主题</span>
-                        </button>
-                    </div>
-                    <!-- 移动端菜单按钮 -->
-                    <button @click="toggleNavMenu" class="nav-toggle" aria-label="Toggle menu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
-                <ul :class="['nav-menu', { 'nav-menu-open': navMenuOpen }]">
-                    <li v-for="battle in battles" :key="battle.id">
-                        <a href="#" @click.prevent="selectBattle(battle)"
-                           :class="{ 'active': currentBattle?.id === battle.id }">
-                            {{ battle.name }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-
-        <!-- 首页：战役列表 -->
-        <div v-if="currentView === 'home'" class="battle-list">
-            <header class="hero-section">
-                <div class="hero-pattern"></div>
-                <div class="hero-content">
-                    <div class="hero-decoration">
-                        <span class="decoration-line"></span>
-                        <span class="decoration-icon">✦</span>
-                        <span class="decoration-line"></span>
-                    </div>
-                    <h1 class="hero-title">历史战役百科</h1>
-                    <p class="hero-subtitle">探索改变世界的关键战役</p>
-                    <div class="hero-decoration">
-                        <span class="decoration-line"></span>
-                        <span class="decoration-icon">❧</span>
-                        <span class="decoration-line"></span>
-                    </div>
-                </div>
-            </header>
-
-            <main class="cards">
-                <article v-for="battle in battles" :key="battle.id"
-                         @click="selectBattle(battle)"
-                         class="battle-card">
-                    <div class="card-image">
-                        <div class="card-frame"></div>
-                        <img :src="battle.cover" :alt="battle.name" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="read-more">探索战役 →</span>
-                        </div>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-era">{{ battle.year }}</div>
-                        <h3>{{ battle.name }}</h3>
-                        <p class="location">{{ battle.location }}</p>
-                        <p class="description">{{ battle.description }}</p>
-                    </div>
-                </article>
-            </main>
-        </div>
-
-        <!-- 战役详情页 -->
-        <div v-else class="battle-detail">
-            <button @click="goHome" class="back-btn">
-                <span class="icon">←</span> 返回列表
-            </button>
-
-            <article class="battle-article">
-                <header class="article-header">
-                    <div class="article-decoration"></div>
-                    <h1>{{ currentBattle?.name }}</h1>
-                    <p class="article-meta">
-                        <span class="year">{{ currentBattle?.year }}</span>
-                        <span class="location">{{ currentBattle?.location }}</span>
-                    </p>
-                </header>
-
-                <div v-if="loading" class="loading">
-                    <div class="spinner"></div>
-                    <p>加载中...</p>
-                </div>
-
-                <div v-else class="article-content" v-html="renderedContent"></div>
-
-                <!-- 图片画廊 -->
-                <div v-if="currentBattle?.images && currentBattle.images.length > 0" class="image-gallery">
-                    <h2>战役图集</h2>
-                    <div class="gallery-grid">
-                        <figure v-for="(img, index) in currentBattle.images" :key="index" class="gallery-item">
-                            <div class="gallery-frame"></div>
-                            <img :src="img.src" :alt="img.caption" loading="lazy">
-                            <figcaption>{{ img.caption }}</figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </div>
-
-    <!-- Vue.js 3 CDN -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- Marked.js for Markdown parsing -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+<body>
+  <div id="app"></div>
+  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
