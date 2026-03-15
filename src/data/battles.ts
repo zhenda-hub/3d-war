@@ -72,6 +72,16 @@ export const battles: Battle[] = [
     images: []
   },
   {
+    id: 'cressy',
+    name: '克雷西战役',
+    year: '公元1346年',
+    location: '法国·克雷西',
+    description: '长弓终结重骑士时代，英军以一敌三创造军事奇迹，改变了战争形态。',
+    cover: '/content/images/cressy-cover.jpg',
+    content: '/content/battles/cressy/index.md',
+    images: []
+  },
+  {
     id: 'red-cliffs',
     name: '赤壁之战',
     year: '公元208年',
