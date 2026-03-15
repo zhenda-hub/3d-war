@@ -12,11 +12,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Tech Stack
 
-- **Vite** - Fast build tool and dev server
-- **React** - UI framework with TypeScript
-- **react-markdown** - Markdown内容渲染
-- **remark-gfm** - GitHub风格Markdown支持（表格、删除线等）
-- **Swiper** (可选) - 图片轮播组件
+- **Vite 5** - Fast build tool and dev server
+- **Vue 3** - Progressive JavaScript framework
+- **Vue Router 4** - Official router for Vue 3
+- **TypeScript** - Type safety
+- **Marked.js** - Markdown parser
 
 ## Commands
 
@@ -33,22 +33,27 @@ npm run preview      # Preview production build locally
 
 ### 核心组件
 
-- **BattleArticle.tsx** - 战役文章渲染器，使用react-markdown渲染Markdown内容
-- **ImageGallery.tsx** - 图片画廊组件（可选）
-- **App.tsx** - 主应用组件，处理路由和布局
+- **BattleArticle.vue** - 战役文章渲染器，使用 marked.js 渲染Markdown内容
+- **ImageGallery.vue** - 图片画廊组件
+- **Navbar.vue** - 导航栏组件
+- **ThemeSwitcher.vue** - 主题切换组件
 
 ### 内容管理
 
-战役内容以Markdown格式存储在 `public/battles/` 目录：
-- `thermopylae.md` - 温泉关战役
-- `marathon.md` - 马拉松战役
-- `cannae.md` - 坎尼战役
+战役内容以Markdown格式存储在 `public/content/battles/` 目录：
+
+- `thermopylae/index.md` - 温泉关战役
+- `marathon/index.md` - 马拉松战役
+- `cannae/index.md` - 坎尼战役
+- `cressy/index.md` - 克雷西战役
+- `red-cliffs/index.md` - 赤壁之战
 
 战役元数据（标题、年份、位置等）存储在 `src/data/battles.ts`
 
 ### 图片资源
 
-战役图片存储在 `public/images/[战役名]/` 目录，命名规范：
+战役图片存储在 `public/content/battles/[战役名]/images/` 目录，命名规范：
+
 - `01-map.jpg` - 战役地图
 - `02-commander.jpg` - 统领画像
 - `03-battle.jpg` - 战斗场景
@@ -58,109 +63,156 @@ npm run preview      # Preview production build locally
 
 ### Markdown渲染
 
-使用 `react-markdown` 渲染Markdown内容：
+使用 `marked.js` 渲染Markdown内容：
 
-```tsx
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+```ts
+import { marked } from "marked";
 
-<ReactMarkdown remarkPlugins={[remarkGfm]}>
-  {markdownContent}
-</ReactMarkdown>
+const renderedContent = marked.parse(markdown);
 ```
 
 ### 动态加载Markdown
 
 使用 `fetch` 动态加载Markdown文件：
 
-```tsx
-useEffect(() => {
-  fetch(`/battles/${battleId}.md`)
-    .then(res => res.text())
-    .then(text => setMarkdown(text));
-}, [battleId]);
+```ts
+const response = await fetch(battle.content);
+const markdown = await response.text();
 ```
 
 ### 样式系统
 
-- `styles/markdown.css` - Markdown内容样式（基于GitHub风格）
-- `index.css` - 全局样式
+- `src/assets/styles/main.css` - 主样式表
+- `src/assets/styles/themes.css` - 三主题系统（古典/现代/暗黑）
 - 使用CSS变量进行主题定制
 
 ## Content Creation Guidelines
 
-### Markdown文件结构
+### ⚠️ 战役内容必须包含的6个核心部分（REQUIRED）
 
-每个战役Markdown文件应包含：
+每个战役 Markdown 文件**必须**包含以下结构：
 
 ```markdown
 # 战役名称 (年份)
 
-## 背景
-介绍历史背景和起因（2-3段）
+## 时间
 
+- 发生时间：具体日期或时期
+- 持续时间：战役延续的时间长度
+
+## 地点
+
+- 地理位置：战场所在位置
+- 地形特征：平原、山地、河流、城市等
+- 战场环境：天气、季节等环境因素
+
+## 起因
+
+- 战争背景：为什么发生这场战役
+- 冲突根源：双方的根本矛盾
+- 导火索：直接引发战役的事件
+
+## 发展
+
+- 战役筹备：双方准备工作
+- 初期交锋：战斗开始的阶段
+- 战术演变：双方战术调整和变化
+- 局势转换：战场形势的转折点
+
+## 高潮
+
+- 决定性时刻：战役的最关键阶段
+- 战术亮点：精彩或决定性的战术动作
+- 惊心动魄：最激烈的战斗场面
+
+## 结局
+
+- 战役结果：胜负结果和伤亡情况
+- 后续影响：对历史进程的影响
+- 历史意义：这场战役在历史上的地位
+```
+
+**验证检查清单**：
+
+- [ ] 包含"时间"部分
+- [ ] 包含"地点"部分
+- [ ] 包含"起因"部分
+- [ ] 包含"发展"部分
+- [ ] 包含"高潮"部分
+- [ ] 包含"结局"部分
+
+### 推荐补充内容
+
+除了6个必须部分外，建议添加：
+
+```markdown
 ## 双方对比
-| 方面 | 甲方 | 乙方 |
-|------|------|------|
-| 统领 | 姓名 | 姓名 |
-| 兵力 | 数量 | 数量 |
+
+| 方面 | 甲方     | 乙方     |
+| ---- | -------- | -------- |
+| 统领 | 姓名     | 姓名     |
+| 兵力 | 数量     | 数量     |
 | 装备 | 武器装备 | 武器装备 |
-
-## 战斗过程
-### 第一阶段
-描述战斗第一阶段...
-
-### 第二阶段
-描述战斗第二阶段...
-
-## 结果与意义
-战役结果和历史影响...
 ```
 
-### AI图片生成
+### 图片穿插要求
 
-使用AI工具生成战役插图：
-- **Midjourney** - 推荐，质量最高
-- **DALL-E 3** - 提示词理解好
-- **Stable Diffusion** - 免费替代方案
-
-提示词模板：
-```
-Historical illustration of [战役场景],
-[风格要求: educational/museum quality],
-[细节要求: historically accurate],
---ar 16:9
-```
+- 至少5-15张图片
+- 图片要穿插在对应文字段落中
+- 图片要有说明文字（caption）
+- 图片路径使用 `/content/battles/{battle-id}/images/XX.jpg` 格式
 
 ## Development Notes
 
-- 项目使用React函数组件和Hooks
-- TypeScript严格模式开启
+- 项目使用Vue 3 Composition API
+- TypeScript仅用于类型检查
 - 响应式设计，支持移动设备
 - 图片懒加载优化性能
 - Markdown文件支持热更新
+- 三主题系统（古典博物馆/现代极简/暗黑史诗）
 
 ## Adding New Battles
 
-1. 创建Markdown文件：`public/battles/new-battle.md`
+1. 创建Markdown文件：`public/content/battles/new-battle/index.md`
 2. 添加战役元数据到 `src/data/battles.ts`
-3. 生成/准备图片放入 `public/images/new-battle/`
-4. 更新导航组件（如果有）
-5. 运行 `npm run dev` 预览
+3. 生成/准备图片放入 `public/content/battles/new-battle/images/`
+4. 运行 `npm run dev` 预览
+5. **验证6个核心部分是否完整**
 
 ## File Conventions
 
-- Markdown文件：小写连字符命名（如 `thermopylae.md`）
+- Markdown文件：`index.md` 固定命名
 - 图片文件：数字前缀命名（如 `01-map.jpg`）
-- 组件文件：PascalCase命名（如 `BattleArticle.tsx`）
-- 样式文件：kebab-case命名（如 `markdown.css`）
+- 组件文件：PascalCase命名（如 `BattleArticle.vue`）
+- 样式文件：kebab-case命名（如 `main.css`）
+
+## Project-Specific Rules
+
+### 战役内容6部分结构（CRITICAL）
+
+**所有战役内容必须包含以下6个核心部分**：
+
+1. **时间** - 发生时间、持续时间
+2. **地点** - 地理位置、地形特征、战场环境
+3. **起因** - 战争背景、冲突根源、导火索
+4. **发展** - 战役筹备、初期交锋、战术演变、局势转换
+5. **高潮** - 决定性时刻、战术亮点、惊心动魄的场面
+6. **结局** - 战役结果、伤亡情况、后续影响、历史意义
+
+**违反此规则的提交将被拒绝。**
+
+### 图文穿插原则
+
+- 图片必须穿插在相关文字段落之后
+- 禁止将所有图片堆叠在文章最后
+- 每张图片必须有对应的说明文字
 
 ## Future Enhancements
 
 计划中的功能扩展：
+
 - 战役地图可视化（Leaflet/Mapbox）
 - 时间轴组件
 - 兵力对比图表
 - 搜索功能
 - 多语言支持
-- 深色模式
